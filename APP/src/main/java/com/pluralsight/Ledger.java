@@ -96,7 +96,7 @@ public class Ledger {
             }
         }
         Collections.reverse(deposits); // Newest first
-        for (Transactions t : deposits) {
+        for (Transactions t : deposits) { // For-each loop, iterates through deposits arraylist, t being the transaction it's on
             System.out.println(t);
         }
     }
@@ -105,7 +105,7 @@ public class Ledger {
     // Filters and shows only negative-value transactions (payments)
     public void displayPayments() {
         List<Transactions> payments = new ArrayList<>();
-        for (Transactions t : transactions) {
+        for (Transactions t : transactions) { // For-each loop, iterates through payments arraylist, t being the transaction it's on
             if (t.getAmount() < 0) {
                 payments.add(t);
             }
@@ -121,7 +121,7 @@ public class Ledger {
         String currentMonth = java.time.LocalDate.now().getMonth().toString(); // e.g. "APRIL"
         int currentYear = java.time.LocalDate.now().getYear();
 
-        for (Transactions t : transactions) {
+        for (Transactions t : transactions) { // For-each loop, iterates through transactions t (current transaction) arraylist, and gets the date
             java.time.LocalDate date = java.time.LocalDate.parse(t.getDate());
             if (date.getMonth().toString().equals(currentMonth) && date.getYear() == currentYear) {
                 System.out.println(t);

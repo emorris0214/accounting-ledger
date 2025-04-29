@@ -117,6 +117,7 @@ public class APP {
         while (inReportsMenu) {
             clearScreen();
             System.out.println("\n=== Reports Menu ===");
+            System.out.println("C) Custom Search"); /////////////////////////
             System.out.println("M) Month-to-Date");
             System.out.println("P) Previous Month");
             System.out.println("Y) Year-to-Date");
@@ -127,6 +128,8 @@ public class APP {
             String choice2 = keyboard.nextLine().toUpperCase();
 
             switch (choice2) {
+                case "C":
+                    /// ///////////////////////////////////////
                 case "M":
                     ledger.displayMonthToDate();
                     break;
