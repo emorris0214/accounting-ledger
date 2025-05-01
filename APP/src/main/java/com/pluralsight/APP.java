@@ -117,7 +117,7 @@ public class APP {
         while (inReportsMenu) {
             clearScreen();
             System.out.println("\n=== Reports Menu ===");
-            System.out.println("C) Custom Search"); /////////////////////////
+            System.out.println("C) Custom Search"); // Adds an option for the user to search transactions bu custom filters
             System.out.println("M) Month-to-Date");
             System.out.println("P) Previous Month");
             System.out.println("Y) Year-to-Date");
@@ -129,7 +129,8 @@ public class APP {
 
             switch (choice2) {
                 case "C":
-                    /// ///////////////////////////////////////
+                    customSearch(); // Calls the method that handles prompting and filtering based on user input
+                    break;
                 case "M":
                     ledger.displayMonthToDate();
                     break;
@@ -163,7 +164,7 @@ public class APP {
         System.out.println("Enter amount: ");
         double amount = Double.parseDouble(keyboard.nextLine());
 
-        // Capture current date and time
+        // Capture current date and time (attributes)
         String date = java.time.LocalDate.now().toString();
         String time = java.time.LocalTime.now().withNano(0).toString(); // time only, no nanoseconds
 
@@ -213,5 +214,31 @@ public class APP {
                 System.out.println(t);
             }
         }
+    }
+
+    private static void customSearch() {
+        // Prompt the user for optional search filters - all of them are allowed to be blank
+        System.out.println("Enter the start date (YYYY-MM-DD) or leave blank: ");
+        String startDate = keyboard.nextLine().trim();
+        System.out.println("Enter end date (YYYY-MM-DD) or leave blank: ");
+        String endDate = keyboard.nextLine().trim();
+        System.out.println("Enter description keyword or leave blank: ");
+        String description = keyboard.nextLine().trim().toLowerCase(); // Use lowercase for case-insensitivity
+        System.out.println("Enter vendor keyword or leave blank: ");
+        String vendor = keyboard.nextLine().trim().toLowerCase(); // Ditto to line 226
+        System.out.println("Enter amount (exact) or leave blank: ");
+        String amountStr = keyboard.nextLine().trim();
+
+        // Attempt to parse the amount only if the user provided something for us
+        Double amount = null;
+        if (!amountStr.isEmpty()) {
+            try {
+                amount = Double.parseDouble(amountStr); // If valid number, we'll parse and use it in the filter
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid amount. Ignoring amount filter."); // Ignores bad input
+            }
+        }
+        // Delegate to the Ledger class to actually search and print matching results
+        ledger.customSearch(startDate, endDate, description, vendor, amount);
     }
 }

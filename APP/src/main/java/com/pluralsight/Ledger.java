@@ -155,4 +155,49 @@ public class Ledger {
             }
         }
     }
+
+    public void customSearch(String startDate, String endDate, String description, String vendor, Double amount){
+        // Loop through each transaction and evaluate if it meets the criteria
+        for (Transactions t : transactions) {
+            boolean matches = true; // Marked (upcoming) false if any filter doesn't match
+
+            /* DATE FILTERS
+            === Filter by Start Date (inclusively) === */
+            if (!startDate.isEmpty()) {
+                java.time.LocalDate start = java.time.LocalDate.parse(startDate);
+                java.time.LocalDate entryDate = java.time.LocalDate.parse(t.getDate());
+                if (entryDate.isBefore(start)) {
+                    matches = false; // Transaction is too old
+                }
+            }
+            // --- Filter by End Date (inclusive) ---
+            if (!endDate.isEmpty()) {
+                java.time.LocalDate end = java.time.LocalDate.parse(endDate);
+                java.time.LocalDate entryDate = java.time.LocalDate.parse(t.getDate());
+                if (entryDate.isAfter(end)) {
+                    matches = false; // Transaction is too recent
+                }
+            }
+
+            // --- Filter by Description (case-insensitive contains) ---
+            if (!description.isEmpty() && !t.getDescription().toLowerCase().contains(description)) {
+                matches = false; // Description doesn’t match
+            }
+
+            // --- Filter by Vendor (case-insensitive contains) ---
+            if (!vendor.isEmpty() && !t.getVendor().toLowerCase().contains(vendor)) {
+                matches = false; // Vendor doesn’t match
+            }
+
+            // --- Filter by Amount (exact match) ---
+            if (amount != null && t.getAmount() != amount) {
+                matches = false; // Amount doesn’t match exactly
+            }
+
+            // --- If all checks passed, print the transaction ---
+            if (matches) {
+                System.out.println(t);
+            }
+        }
+    }
 }
