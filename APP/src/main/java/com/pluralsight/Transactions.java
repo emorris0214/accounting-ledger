@@ -45,7 +45,7 @@ public class Transactions {
 
     // === OVERRIDE & TO STRING METHOD ===
     // The @Override annotation tells the compiler that this method overrides the default toString()
-    // Converts the transaction into a pipe-delimited string formatted for storage in a CSV file.
+    // Converts the transaction into a bar-delimited string formatted for storage in a CSV file.
     // Includes formatting to show amount with 2 decimal places and a dollar sign.
     @Override
     public String toString() {
