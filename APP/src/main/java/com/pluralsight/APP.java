@@ -188,7 +188,7 @@ public class APP {
         double amount = Double.parseDouble(keyboard.nextLine());
 
         // Ensure the amount is negative to represent a payment/debit
-        amount = -Math.abs(amount);
+        amount = -Math.abs(amount); // negative absolute auto converts payments to a negative balance
 
         // Capture current date and time
         String date = java.time.LocalDate.now().toString();

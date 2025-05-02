@@ -156,6 +156,7 @@ public class Ledger {
         }
     }
 
+    // === ASK USER FOR SPECIFICS TO MAKE A CUSTOM SEARCH ===
     public void customSearch(String startDate, String endDate, String description, String vendor, Double amount){
         // Loop through each transaction and evaluate if it meets the criteria
         for (Transactions t : transactions) {
